@@ -1,10 +1,58 @@
+import secrets
+
 import numpy as np
 import pandas as pd
+import hashlib
 
-
-from fonctions_menu import *
+from modules.fonctions_menu import *
 
 nomsColonnes = ["COMPOSITEUR","TYPE D'OEUVRE","NB DE MOUVEMENT"]
+
+def authentification(dico,testSecu):
+    print("Veuillez entrer votre Identifiant")
+    ID = masqueDeSaisie()
+    print("Veuillez entrer votre mot de passe")
+    plainMDP = masqueDeSaisie()
+    sel = dico[ID][1]
+    contenu = plainMDP + sel
+    hashMdptest = hashlib.new("SHA512")
+    hashMdptest.update(contenu.encode("utf-8"))
+    try:
+        if hashMdptest.hexdigest() == dico[ID][0]:
+            print("Vous êtes authentifié !")
+            testSecu = True
+        else:
+            print("Mot de passe incorrect")
+
+    except KeyError:
+        print("Le nom d'utilisateur que vous avez entrer est inconnue")
+    return testSecu
+
+def creationCompte(dico):
+    print("Veuillez entrer votre Identifiant")
+    ID = masqueDeSaisie()
+    print("Veuillez entrer votre mot de passe")
+    plainMDP = masqueDeSaisie()
+    sel = secrets.token_hex(16)
+    contenu = plainMDP + sel
+    hashMdpSale = hashlib.new("SHA512")
+    hashMdpSale.update(contenu.encode("utf-8"))
+    if ID not in dico.keys():
+        dico[ID] = (hashMdpSale.hexdigest(),sel)
+        fichier = open("data/passwords.csv", "a")
+        fichier.write("{0},{1},{2},\n".format(ID, hashMdpSale.hexdigest(), sel))
+        fichier.close()
+        print("Votre compte à été correctement creer")
+    else:
+        print("Votre nom d'utilisateur est déjà pris")
+
+def chargementMotDePasse():
+    fichier = open("data/passwords.csv", "r")
+    dico = {}
+    for ligne in fichier:
+        lignes = ligne.split(",")
+        dico[lignes[0]] = (lignes[1], lignes[2])
+    return dico
 
 def masqueDeSaisie():
     boucle = True
@@ -16,9 +64,9 @@ def masqueDeSaisie():
             print("Veuillez entrer une chaine de caractere valide")
     return masque
 
-def lectureFichier():
+def lectureFichier(nomFichier):
     try:
-        df = pd.read_csv("data.csv", index_col=0,sep=";")
+        df = pd.read_csv("data/" + nomFichier + ".csv", index_col=0,sep=";")
         return df
     except IOError:
         "Aucune donnée n'est enregistrée"
@@ -71,18 +119,27 @@ def afficherTouteData(df,ordre,critere):
         df = df.sort_values(by=critere, ascending=False, kind = "mergesort")
     return df
 
-def afficherRechercheData(df,colonne,condition):
+def afficherRechercheData(df,condition,dfRecherche,colonneRecherche):
+
     try:
-        if df[(df[colonne]==condition)].empty:
-            raise KeyError
-        return df[df[colonne] == condition]
+        listeRecherche = dfRecherche.loc[condition,colonneRecherche].split(",")
+        for nombre in listeRecherche:
+            print(df.loc[int(nombre)])
+            print("\n")
+
+
+
+
+
+
     except KeyError as error:
         print(error)
         return "\n" + " Votre recherche n'a pas aboutie, êtes vous sûr d'avoir entré les bonnes informations ? \n Si oui, alors " \
                    "votre recherche n'est pas dans notre base de données, \n vous pouvez la rajouter via " \
                    "le menu d'édition" + "\n"
 
-nouvelleInfo = np.array([["Chopin","Ballade",1],["Beethoven","Symphonie","3"],["Mozart","Requiem",1]])
-nouvelleOeuvre =["Ballade No 1", "Symphonie No 9", "Requiem"]
-
-
+"""
+    try:
+        if df[(df[colonne]==condition)].empty:
+            raise KeyError
+        return df[df[colonne] == condition]"""

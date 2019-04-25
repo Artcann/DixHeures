@@ -1,13 +1,7 @@
-﻿Morceau;COMPOSITEUR;Type d'oeuvre;Nombre de mouvements;Instruments;Genre;Tonalité;Catalogue
-Concerto pour violon, cordes et basse continue, en la majeur ;Johann Sebastian Bach;Concerto;3;1,  5;Baroque;en la mineur;BWV 1041
-Concerto pour violon, cordes et basse continue, en mi majeur ;Johann Sebastian Bach;Concerto;3;1, 5;Baroque;en mi majeur ;BWV 1042
-Concerto pour 2 violons, cordes et basse continue, en ré mineur ;Johann Sebastian Bach;Concerto;3;1, 5;Baroque;en ré mineur ;BWV 1043
-Concerto pour piano, cordes et basse continue, no 2, en mi majeur ;Johann Sebastian Bach;Concerto;3;2, 5;Baroque;en mi majeur ;BWV 1053
-Concerto pour piano et orchestre à cordes, no 5, en mi bémol majeur;Johann Christian Bach;Concerto;3;2;Baroque;en mi bémol majeur;Op.7/5 / Warburton C 59 P
-Concerto pour piano, cordes et basse continue, no 1, en ré mineur ;Johann Sebastian Bach;Concerto;3;2, 5;Baroque;en ré mineur ;BWV 1052
-Concerto pour clavecin, cordes et basse continue, no 2, en mi bémol majeur;Johann Sebastian Bach;Concerto;3;5, 6;Baroque;en mi bémol majeur;BWV 1053 R
-Weinen, klagen, sorgen, zagen. Cantate pour soli, choeur et basse continue, no 12 ;Johann Sebastian Bach;Cantate;1;7;Baroque;/;BWV 12
-Concerto pour clavecin, cordes et basse continue, no 4, en la majeur;Johann Sebastian Bach;Concerto;3;5, 6;Baroque;en la majeur;BWV 1055 R
-Ich hatte viel Bekümmernis. Cantate pour soli, choeur et basse continue , no 21 ;Johann Sebastian Bach;Cantate;1;5, 7;Baroque;/;BWV 21
-Oratorio de Pâques. Cantate pour soli, choeur et orchestre de chambre ;Johann Sebastian Bach;Cantate;1;7;Baroque;/;BWV 24
-Concerto pour clavecin solo, hautbois, 2 violons, alto et basse continue, en ré mineur ;Johann Sebastian Bach;Concerto;3;1, 6, 8;Baroque;en ré mineur ;BWV 1059 R
+﻿;NOMS;COMPOSITEUR;TYPE D'ŒUVRE;NB MOUVEMENT
+0;Symphonie No 9;1;Symphonie;3
+1;Ballade No 1;4;Ballade;1
+2;Danse Macabre;3;Poème Symphonique;1
+3;Concerto pour piano No 2;5;Concerto pour piano;3
+4;Requiem;2;Requiem;8
+5;Symphonie No 5;1;Symphonie;3

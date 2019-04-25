@@ -1,4 +1,4 @@
-from fonctions_partitions import *
+from modules.fonctions_partitions import *
 
 def choix(nb_choix):
     boucle = True
@@ -11,21 +11,20 @@ def choix(nb_choix):
             print("\nVeuillez entrer un entier positif valide")
     return choix
 
-def masqueDeSaisie():
-    boucle = True
-    while boucle:
-        try:
-            masque = str(input("Entrez une chaîne de caractère : "))
-            boucle = False
-        except ValueError:
-            print("Veuillez entrer une chaine de caractere valide")
-    return masque
+def menuAuthentification():
+    affichage = "\n" + 10*"*"+" AUTHENTIFICATION " + 10*"*"
+    choix = 2*"\n" + "1- Se connecter"
+    choix += "\n" + "2- S'enregistrer"
+    choix += 2*"\n" + "0- Quitter"
+    print(affichage,choix)
+
 
 def menuPrincipal():
     affichage = "\n" + 10*"*"+" MENU PRINCIPAL " + 10*"*"
     question = 2*"\n" + "Que voulez vous faire ?"
     choix = "\n" + "1- Creer, Modifier ou Supprimer des informations"
     choix += "\n" + "2- Rechercher et afficher des oeuvres"
+    choix += "\n" + "3- Se deconnecter"
     choix += 2*"\n" + "0- Quitter" + "\n"
     print(affichage,question,choix)
 

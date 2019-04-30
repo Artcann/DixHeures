@@ -6,9 +6,11 @@ import hashlib
 
 from modules.fonctions_menu import *
 
-nomsColonnes = ["COMPOSITEUR","TYPE D'OEUVRE","NB DE MOUVEMENT"]
+nomsColonnes = ["COMPOSITEUR", "TYPE D'OEUVRE", "NB DE MOUVEMENT"]
+
 
 def authentification(dico,testSecu):
+
     print("Veuillez entrer votre Identifiant")
     ID = masqueDeSaisie()
     print("Veuillez entrer votre mot de passe")
@@ -28,6 +30,7 @@ def authentification(dico,testSecu):
         print("Le nom d'utilisateur que vous avez entrer est inconnue")
     return testSecu
 
+
 def creationCompte(dico):
     print("Veuillez entrer votre Identifiant")
     ID = masqueDeSaisie()
@@ -46,6 +49,7 @@ def creationCompte(dico):
     else:
         print("Votre nom d'utilisateur est déjà pris")
 
+
 def chargementMotDePasse():
     fichier = open("data/passwords.csv", "r")
     dico = {}
@@ -54,22 +58,26 @@ def chargementMotDePasse():
         dico[lignes[0]] = (lignes[1], lignes[2])
     return dico
 
+
 def masqueDeSaisie():
     boucle = True
     while boucle:
         try:
             masque = str(input("Entrez une chaîne de caractère : "))
+            print("\n")
             boucle = False
         except ValueError:
             print("Veuillez entrer une chaine de caractere valide")
     return masque
 
+
 def lectureFichier(nomFichier):
     try:
-        df = pd.read_csv("data/" + nomFichier + ".csv", index_col=0,sep=";")
+        df = pd.read_csv("data/" + nomFichier + ".csv", index_col=0, sep=";")
         return df
     except IOError:
         "Aucune donnée n'est enregistrée"
+
 
 def ecritureFichier(df):
     try:
@@ -91,15 +99,17 @@ def creerPartition(df):
     nbMouvement = str(input("Entrez une chaîne de caractère : "))
     infoOeuvre = np.array([[compositeur,forme,nbMouvement]])
 
-    df = pd.DataFrame(infoOeuvre,index=nomOeuvre,columns=nomsColonnes).append(df,sort=True)
+    df = pd.DataFrame(infoOeuvre, index=nomOeuvre, columns=nomsColonnes).append(df, sort=True)
     return df
+
 
 def supprimerPartition(df):
 
     print("Quel est le nom de l'oeuvre que vous voulez supprimer")
     nomOeuvre = [masqueDeSaisie()]
-    df.drop(nomOeuvre,axis = 0, inplace=True)
+    df.drop(nomOeuvre, axis=0, inplace=True)
     print("Partition supprimée")
+
 
 def modifierPartition(df):
 
@@ -112,26 +122,30 @@ def modifierPartition(df):
     infoModif = masqueDeSaisie()
     df.at[nomOeuvre,colonne] = infoModif
 
-def afficherTouteData(df,ordre,critere):
+
+def afficherTouteData(df, ordre, critere):
+
     if ordre == 1:
-        df = df.sort_values(by = critere,kind = "mergesort")
+        df = df.sort_values(by=critere, kind="mergesort")
     elif ordre == 2:
-        df = df.sort_values(by=critere, ascending=False, kind = "mergesort")
+        df = df.sort_values(by=critere, ascending=False, kind="mergesort")
     return df
 
-def afficherRechercheData(df,condition,dfRecherche,colonneRecherche):
+
+def afficherRechercheData(df, condition, dfRecherche, colonneRecherche):
 
     try:
-        listeRecherche = dfRecherche.loc[condition,colonneRecherche].split(",")
-        for nombre in listeRecherche:
-            print(df.loc[int(nombre)])
-            print("\n")
+        listeRecherche = dfRecherche.loc[condition, colonneRecherche].split(",")
+        for i in range(0,len(listeRecherche)):
+            listeRecherche[i] = int(listeRecherche[i])
 
 
+        #ficherRecherche.write(str(df.loc[listeRecherche]))
 
+        dfResultat = df.loc[listeRecherche]
+        print(dfResultat.to_string(),"\n")
 
-
-
+        input("Appuyez sur Entrée pour continuer")
     except KeyError as error:
         print(error)
         return "\n" + " Votre recherche n'a pas aboutie, êtes vous sûr d'avoir entré les bonnes informations ? \n Si oui, alors " \
